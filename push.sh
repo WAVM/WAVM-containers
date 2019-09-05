@@ -2,5 +2,5 @@
 
 set -e
 
-builders/push.sh
-testers/push.sh
+(cd builders && ./push.sh)
+(cd testers && ./push.sh)

@@ -2,5 +2,5 @@
 
 set -e
 
-builders/build.sh
-testers/build.sh
+(cd builders && ./build.sh)
+(cd testers && ./build.sh)
