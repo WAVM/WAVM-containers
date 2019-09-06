@@ -44,6 +44,9 @@ RUN ln -s /opt/llvm6/bin/* /usr/local/bin
 
 FROM llvm6 AS llvm9
 
+# Delete the LLVM 6 source.
+RUN rm -rf llvm-project
+
 # Download and extract the LLVM source. curl doesn't work due to a https bug in this release.
 RUN wget https://github.com/llvm/llvm-project/archive/release/9.x.zip &&\
 	unzip /9.x.zip &&\
