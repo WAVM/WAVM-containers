@@ -15,6 +15,7 @@ docker push wavm/package-tester-deb:debian10
 # CentOS
 docker push wavm/package-tester-rpm:centos7
 docker push wavm/package-tester-rpm:centos7.0
+docker push wavm/package-tester-rpm:centos8
 
 # Fedora
 docker push wavm/package-tester-rpm:fedora29

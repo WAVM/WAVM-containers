@@ -15,6 +15,7 @@ docker build -t wavm/package-tester-deb:debian10 --build-arg BASE_IMAGE=debian:1
 # CentOS
 docker build -t wavm/package-tester-rpm:centos7   --build-arg BASE_IMAGE=centos:7        package-tester-rpm/yum
 docker build -t wavm/package-tester-rpm:centos7.0 --build-arg BASE_IMAGE=centos:7.0.1406 package-tester-rpm/yum
+docker build -t wavm/package-tester-rpm:centos8   --build-arg BASE_IMAGE=centos:8        package-tester-rpm/yum
 
 # Fedora
 docker build -t wavm/package-tester-rpm:fedora29 --build-arg BASE_IMAGE=fedora:29 package-tester-rpm/yum
