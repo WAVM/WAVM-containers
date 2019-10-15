@@ -5,7 +5,7 @@ RUN apt-get update &&\
 	curl -L https://apt.llvm.org/llvm-snapshot.gpg.key | apt-key add - &&\
 	add-apt-repository "deb http://apt.llvm.org/xenial/ llvm-toolchain-xenial-9 main" &&\
 	apt-get update &&\
-	apt-get install -y build-essential clang-9 gcc g++ lld-9 ninja-build wget zip &&\
+	apt-get install -y build-essential clang-9 gcc git g++ lld-9 ninja-build wget zip &&\
 	apt-get clean
 
 # Create symbolic links to the LLVM binaries in /usr/local/bin.
