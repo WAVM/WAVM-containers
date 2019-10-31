@@ -6,6 +6,7 @@ set -e
 docker build -t wavm/package-tester-deb:ubuntu16.04 --build-arg BASE_IMAGE=ubuntu:16.04 package-tester-deb
 docker build -t wavm/package-tester-deb:ubuntu18.04 --build-arg BASE_IMAGE=ubuntu:18.04 package-tester-deb
 docker build -t wavm/package-tester-deb:ubuntu19.04 --build-arg BASE_IMAGE=ubuntu:19.04 package-tester-deb
+docker build -t wavm/package-tester-deb:ubuntu19.10 --build-arg BASE_IMAGE=ubuntu:19.10 package-tester-deb
 
 # Debian
 docker build -t wavm/package-tester-deb:debian8  --build-arg BASE_IMAGE=debian:8  package-tester-deb
