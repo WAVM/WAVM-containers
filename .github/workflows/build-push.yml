@@ -1,0 +1,99 @@
+name: Build and Push Containers
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+    branches: [main, master]
+  workflow_dispatch:
+
+env:
+  REGISTRY: ghcr.io
+  OWNER: wavm
+
+jobs:
+  build-builder:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Log in to GitHub Container Registry
+        if: github.event_name != 'pull_request'
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build builder image
+        run: |
+          docker build -t ${{ env.REGISTRY }}/${{ env.OWNER }}/builder-linux-x64:latest \
+            builders/linux-x64
+
+      - name: Push builder image
+        if: github.event_name != 'pull_request'
+        run: |
+          docker push ${{ env.REGISTRY }}/${{ env.OWNER }}/builder-linux-x64:latest
+
+  build-testers:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          # Ubuntu
+          - base: ubuntu:20.04
+            tag: ubuntu-20.04
+          - base: ubuntu:22.04
+            tag: ubuntu-22.04
+          - base: ubuntu:24.04
+            tag: ubuntu-24.04
+          # Debian
+          - base: debian:11
+            tag: debian-11
+          - base: debian:12
+            tag: debian-12
+          # Fedora
+          - base: fedora:40
+            tag: fedora-40
+          - base: fedora:41
+            tag: fedora-41
+          # AlmaLinux
+          - base: almalinux:8
+            tag: almalinux-8
+          - base: almalinux:9
+            tag: almalinux-9
+          # openSUSE
+          - base: opensuse/leap:15.6
+            tag: opensuse-15.6
+          # Arch
+          - base: archlinux:latest
+            tag: arch
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Log in to GitHub Container Registry
+        if: github.event_name != 'pull_request'
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build tester image (${{ matrix.tag }})
+        run: |
+          docker build \
+            --build-arg BASE_IMAGE=${{ matrix.base }} \
+            -t ${{ env.REGISTRY }}/${{ env.OWNER }}/tester:${{ matrix.tag }} \
+            testers
+
+      - name: Push tester image (${{ matrix.tag }})
+        if: github.event_name != 'pull_request'
+        run: |
+          docker push ${{ env.REGISTRY }}/${{ env.OWNER }}/tester:${{ matrix.tag }}
