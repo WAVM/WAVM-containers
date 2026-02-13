@@ -19,9 +19,12 @@ ENV PATH="/opt/python/cp39-cp39/bin:${PATH}"
 # Install ninja via pip (dnf version is too old for LLVM's multi-output rules)
 RUN pip3 install ninja
 
-# Copy aarch64 sysroot for cross-compilation
+# Copy aarch64 sysroot for cross-compilation.
+# /usr/lib/gcc is needed for clang to detect the GCC installation and find
+# C++ standard library headers.
 COPY --from=aarch64-sysroot /usr/include /sysroot-aarch64/usr/include
 COPY --from=aarch64-sysroot /usr/lib64 /sysroot-aarch64/usr/lib64
+COPY --from=aarch64-sysroot /usr/lib/gcc /sysroot-aarch64/usr/lib/gcc
 COPY --from=aarch64-sysroot /lib64 /sysroot-aarch64/lib64
 
 CMD ["/bin/bash"]
