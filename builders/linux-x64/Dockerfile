@@ -17,7 +17,8 @@ RUN dnf install -y \
 ENV PATH="/opt/python/cp39-cp39/bin:${PATH}"
 
 # Install ninja via pip (dnf version is too old for LLVM's multi-output rules)
-RUN pip3 install ninja
+# Install uv for uvx (Python linting tools)
+RUN pip3 install ninja uv
 
 # Copy entire aarch64 root as sysroot for cross-compilation.
 # Uses cp -a to preserve symlinks (e.g. /lib -> usr/lib) that COPY would follow.
