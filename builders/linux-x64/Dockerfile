@@ -11,10 +11,14 @@ RUN dnf install -y \
     cmake \
     git \
     jq \
+    gcc-toolset-14-gdb \
+    gcc-toolset-14-libasan-devel \
+    gcc-toolset-14-libubsan-devel \
     && dnf clean all
 
 # Use manylinux's Python 3.9 instead of system Python 3.6
-ENV PATH="/opt/python/cp39-cp39/bin:${PATH}"
+# Prepend gcc-toolset-14 so its GDB (14.x) shadows the system GDB (8.2)
+ENV PATH="/opt/rh/gcc-toolset-14/root/usr/bin:/opt/python/cp39-cp39/bin:${PATH}"
 
 # Install ninja via pip (dnf version is too old for LLVM's multi-output rules)
 # Install uv for uvx (Python linting tools)
