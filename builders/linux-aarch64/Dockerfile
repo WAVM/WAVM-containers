@@ -11,6 +11,7 @@ RUN dnf install -y \
     cmake \
     git \
     jq \
+    rpm-build \
     gcc-toolset-14-gdb \
     gcc-toolset-14-libasan-devel \
     gcc-toolset-14-libubsan-devel \
