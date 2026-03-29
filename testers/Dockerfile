@@ -6,6 +6,13 @@ FROM ${BASE_IMAGE}
 
 ARG BASE_IMAGE
 RUN case "${BASE_IMAGE}" in \
+        ubuntu:20.04) \
+            apt-get update && \
+            apt-get install -y python3.9 cmake ninja-build gcc g++ && \
+            update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.9 1 && \
+            apt-get clean && \
+            rm -rf /var/lib/apt/lists/* \
+            ;; \
         ubuntu:*|debian:*) \
             apt-get update && \
             apt-get install -y python3 cmake ninja-build gcc g++ && \
@@ -17,7 +24,8 @@ RUN case "${BASE_IMAGE}" in \
             dnf clean all \
             ;; \
         almalinux:*) \
-            dnf install -y python3 && \
+            dnf install -y python39 && \
+            alternatives --set python3 /usr/bin/python3.9 && \
             dnf clean all \
             ;; \
         opensuse/leap:*) \
