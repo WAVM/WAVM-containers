@@ -18,7 +18,7 @@ jobs:
       contents: read
       packages: write
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
       - name: Log in to GitHub Container Registry
         if: github.event_name != 'pull_request'
@@ -44,7 +44,7 @@ jobs:
       contents: read
       packages: write
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
       - name: Log in to GitHub Container Registry
         if: github.event_name != 'pull_request'
@@ -102,7 +102,7 @@ jobs:
           - base: archlinux:latest
             tag: arch
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
       - name: Log in to GitHub Container Registry
         if: github.event_name != 'pull_request'
@@ -159,7 +159,7 @@ jobs:
           - base: opensuse/leap:15.6
             tag: aarch64-opensuse-15.6
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
       - name: Log in to GitHub Container Registry
         if: github.event_name != 'pull_request'
