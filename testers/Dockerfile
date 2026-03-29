@@ -29,7 +29,7 @@ RUN case "${BASE_IMAGE}" in \
             dnf clean all \
             ;; \
         opensuse/leap:*) \
-            zypper install -y python3 tar cmake ninja gcc gcc-c++ && \
+            zypper install -y python3 gzip tar cmake ninja gcc gcc-c++ && \
             zypper clean --all \
             ;; \
         archlinux:*) \
