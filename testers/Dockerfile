@@ -23,9 +23,13 @@ RUN case "${BASE_IMAGE}" in \
             dnf install -y python3 cmake ninja-build gcc gcc-c++ && \
             dnf clean all \
             ;; \
-        almalinux:*) \
+        almalinux:8) \
             dnf install -y python39 && \
             alternatives --set python3 /usr/bin/python3.9 && \
+            dnf clean all \
+            ;; \
+        almalinux:*) \
+            dnf install -y python3 && \
             dnf clean all \
             ;; \
         opensuse/leap:*) \
