@@ -21,7 +21,7 @@ RUN case "${BASE_IMAGE}" in \
             dnf clean all \
             ;; \
         opensuse/leap:*) \
-            zypper install -y python3 && \
+            zypper install -y python3 tar && \
             zypper clean --all \
             ;; \
         archlinux:*) \
