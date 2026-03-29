@@ -17,7 +17,8 @@ RUN case "${BASE_IMAGE}" in \
             dnf clean all \
             ;; \
         almalinux:*) \
-            dnf install -y python3 cmake ninja-build gcc gcc-c++ && \
+            dnf install -y python3 python3-pip cmake gcc gcc-c++ && \
+            pip3 install ninja && \
             dnf clean all \
             ;; \
         opensuse/leap:*) \
