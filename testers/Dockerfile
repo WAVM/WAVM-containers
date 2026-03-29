@@ -8,24 +8,24 @@ ARG BASE_IMAGE
 RUN case "${BASE_IMAGE}" in \
         ubuntu:*|debian:*) \
             apt-get update && \
-            apt-get install -y python3 && \
+            apt-get install -y python3 cmake ninja-build gcc g++ && \
             apt-get clean && \
             rm -rf /var/lib/apt/lists/* \
             ;; \
         fedora:*) \
-            dnf install -y python3 && \
+            dnf install -y python3 cmake ninja-build gcc gcc-c++ && \
             dnf clean all \
             ;; \
         almalinux:*) \
-            dnf install -y python3 && \
+            dnf install -y python3 cmake ninja-build gcc gcc-c++ && \
             dnf clean all \
             ;; \
         opensuse/leap:*) \
-            zypper install -y python3 tar && \
+            zypper install -y python3 tar cmake ninja gcc gcc-c++ && \
             zypper clean --all \
             ;; \
         archlinux:*) \
-            pacman -Syu --noconfirm python && \
+            pacman -Syu --noconfirm python cmake ninja gcc && \
             pacman -Scc --noconfirm \
             ;; \
         *) \
