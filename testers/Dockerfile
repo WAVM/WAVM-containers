@@ -32,6 +32,11 @@ RUN case "${BASE_IMAGE}" in \
             dnf install -y python3 && \
             dnf clean all \
             ;; \
+        opensuse/leap:15.6) \
+            zypper install -y python311 gzip tar cmake ninja gcc gcc-c++ && \
+            update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.11 2 && \
+            zypper clean --all \
+            ;; \
         opensuse/leap:*) \
             zypper install -y python3 gzip tar cmake ninja gcc gcc-c++ && \
             zypper clean --all \
